@@ -72,24 +72,141 @@ output_dir/
             └── combined/
 ```
 
-## Configuration
+## Advanced Usage/Configuration
+
+### Properties You Can
 
 > [!WARNING]
 > Planned feature. Not yet implemented.
 
+#### Specifying Input Files
 
-| **short flag** | **long flag** | **config variable** | **description** | **accepted values** | **example** |  | **default** | **notes** |
-|----------------|---------------|---------------------|-----------------|---------------------|-------------|--|-------------|-----------|
-| `-i` | `--input` | `input` | the screenshots you want to have mocked up | `glob pattern/files` | `*png screenshot3.jpg` | will mockup all png files as well as `screenshot3.jpg` in the current working directory | `*.{jpg,png,webp}` |  |
-| `-o` | `--output` | `output` | the directory where to output your mockups to | `path of directory` |  |  |  | directory will be created if it doesn't exist |
-| `-t` | `--templates` | `templates` | the directory in which your mockup templates are to be found |  |  |  |  |  |
-| `-p` | `--padding` | `padding` | the distance from the mockups to the edge of the output image | `single number` | `10` |  |  |  |
-|  |  |  |  | `four numbers` | `10 10 30 10` |  |  |  |
-| `-m` | `--margin` | `margin` | the (extra) distance from your mockups to the edge of the output image, if using a background image | `single number` | `50` |  |  |  |
-|  |  |  |  | `four numbers` | `30 50 25 50` |  |  |  |
-| `-r` | `--resolutions` | `resolutions` | the image resolution of the generated mockups | `space-separated list of pixel resolutions` | `3000x2000 800x568` |  | `1920x1080` |  |
-|  | `--only-combined` |  |  |  |  |  |  |  |
-|  | `--only-standalone` |  | make only mocks where the screenshots are displayed alone |  |  |  |  |  |
-|  | `--all-possible-combinations` |  |  |  |  |  |  |  |
-|  | `--flat-output-directory` |  | do not structure the output into subfolders, flatly list them in the specified directory |  |  |  |  |  |
-| `-c` | `--config` |  | path to your config file | `filepath` |  |  |  |  |
+| **short flag** | **long flag** | **config variable** |
+|----------------|---------------|---------------------|
+| `-i`         | `--input`      | `input`             |
+
+the screenshots you want to have mocked up
+
+glob pattern/files
+
+`*.{jpg,png,webp}`
+
+`*png screenshot3.jpg`
+
+---
+
+#### Defining the Output Directory
+
+| **short flag** | **long flag** | **config variable** |
+|----------------|---------------|---------------------|
+| `-o`         | `--output`     | `output`            |
+
+the directory where to output your mockups to
+
+path of directory
+
+directory will be created if it doesn't exist
+
+---
+
+#### Locating Template Files
+
+| **short flag** | **long flag** | **config variable** |
+|----------------|---------------|---------------------|
+| `-t`         | `--templates`  | `templates`         |
+
+the directory in which your mockup templates are to be found
+
+---
+
+#### Setting Padding Around Mockups
+
+| **short flag** | **long flag** | **config variable** |
+|----------------|---------------|---------------------|
+| `-p`         | `--padding`    | `padding`           |
+
+the distance from the mockups to the edge of the output image
+
+single number  
+four numbers
+
+`10`  
+`10 10 30 10`
+
+---
+
+#### Setting Margin for Background
+
+| **short flag** | **long flag** | **config variable** |
+|----------------|---------------|---------------------|
+| `-m`         | `--margin`     | `margin`            |
+
+the (extra) distance from your mockups to the edge of the output image, if using a background image
+
+single number  
+four numbers
+
+`50`  
+`30 50 25 50`
+
+---
+
+#### Specifying Image Resolutions
+
+| **short flag** | **long flag**   | **config variable** |
+|----------------|-----------------|---------------------|
+| `-r`         | `--resolutions` | `resolutions`       |
+
+the image resolution of the generated mockups
+
+space-separated list of pixel resolutions
+
+`1920x1080`
+
+`3000x2000 800x568`
+
+---
+
+#### Combining Inputs into One Mockup
+
+| **short flag** | **long flag**           | **config variable** |
+|----------------|-------------------------|---------------------|
+| —              | `--only-combined`       | —                   |
+
+---
+
+#### Creating Standalone Mocks
+
+| **short flag** | **long flag**           | **config variable** |
+|----------------|-------------------------|---------------------|
+| —              | `--only-standalone`     | —                   |
+
+make only mocks where the screenshots are displayed alone
+
+---
+
+#### Generating All Combinations
+
+| **short flag** | **long flag**                   | **config variable** |
+|----------------|---------------------------------|---------------------|
+| —              | `--all-possible-combinations`   | —                   |
+
+---
+
+#### Using a Flat Output Directory
+
+| **short flag** | **long flag**                 | **config variable** |
+|----------------|-------------------------------|---------------------|
+| —              | `--flat-output-directory`     | —                   |
+
+do not structure the output into subfolders, flatly list them in the specified directory
+
+---
+
+#### Config File Location
+
+| **short flag** | **long flag** | **config variable** |
+|----------------|---------------|---------------------|
+| `-c`         | `--config`     | —                   |
+
+path to your config file
