@@ -72,11 +72,24 @@ output_dir/
             └── combined/
 ```
 
-## Requirements
+## Configuration
 
-- Python 3.6 or higher
-- Pillow (PIL) library
+> [!WARNING]
+> Planned feature. Not yet implemented.
 
-## License
 
-MIT License
+| **short flag** | **long flag** | **config variable** | **description** | **accepted values** | **example** |  | **default** | **notes** |
+|----------------|---------------|---------------------|-----------------|---------------------|-------------|--|-------------|-----------|
+| `-i` | `--input` | `input` | the screenshots you want to have mocked up | `glob pattern/files` | `*png screenshot3.jpg` | will mockup all png files as well as `screenshot3.jpg` in the current working directory | `*.{jpg,png,webp}` |  |
+| `-o` | `--output` | `output` | the directory where to output your mockups to | `path of directory` |  |  |  | directory will be created if it doesn't exist |
+| `-t` | `--templates` | `templates` | the directory in which your mockup templates are to be found |  |  |  |  |  |
+| `-p` | `--padding` | `padding` | the distance from the mockups to the edge of the output image | `single number` | `10` |  |  |  |
+|  |  |  |  | `four numbers` | `10 10 30 10` |  |  |  |
+| `-m` | `--margin` | `margin` | the (extra) distance from your mockups to the edge of the output image, if using a background image | `single number` | `50` |  |  |  |
+|  |  |  |  | `four numbers` | `30 50 25 50` |  |  |  |
+| `-r` | `--resolutions` | `resolutions` | the image resolution of the generated mockups | `space-separated list of pixel resolutions` | `3000x2000 800x568` |  | `1920x1080` |  |
+|  | `--only-combined` |  |  |  |  |  |  |  |
+|  | `--only-standalone` |  | make only mocks where the screenshots are displayed alone |  |  |  |  |  |
+|  | `--all-possible-combinations` |  |  |  |  |  |  |  |
+|  | `--flat-output-directory` |  | do not structure the output into subfolders, flatly list them in the specified directory |  |  |  |  |  |
+| `-c` | `--config` |  | path to your config file | `filepath` |  |  |  |  |
