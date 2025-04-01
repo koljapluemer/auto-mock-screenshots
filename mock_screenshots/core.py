@@ -1,6 +1,5 @@
 import os
 import random
-import argparse
 from itertools import chain, combinations
 from PIL import Image, ImageDraw
 
@@ -246,12 +245,12 @@ def ensure_dir(path):
     if not os.path.exists(path):
         os.makedirs(path)
 
-def read_resolutions_file(subfolder_path):
+def read_resolutions_file(input_dir):
     """
-    Read resolutions.txt (if it exists) in the given subfolder.
+    Read resolutions.txt (if it exists) in the input directory.
     Returns a list of (width, height) tuples.
     """
-    res_file = os.path.join(subfolder_path, "resolutions.txt")
+    res_file = os.path.join(input_dir, "resolutions.txt")
     resolutions = []
     if os.path.isfile(res_file):
         with open(res_file, "r") as f:
@@ -272,9 +271,9 @@ def all_nonempty_subsets(iterable):
     s = list(iterable)
     return chain.from_iterable(combinations(s, r) for r in range(1, len(s)+1))
 
-def process_subfolder(subfolder_path, output_dir):
+def process_directory(input_dir, output_dir):
     """
-    Process one subfolder:
+    Process all screenshots in the input directory:
       1. Create mocks/basic/ and generate basic enhanced mocks for each screenshot.
       2. Check if a background file exists.
       3. For each target resolution (1920x1080 plus those in resolutions.txt),
@@ -290,14 +289,10 @@ def process_subfolder(subfolder_path, output_dir):
          horizontally, with a fixed gap (20px) between images and a margin of 2% (of the smaller dimension)
          to the canvas edge. Save these in no-bg/combined and, if a background exists, in bg/combined.
     """
-    print(f"Processing subfolder: {subfolder_path}")
-    
-    # Get the subfolder name to create corresponding output structure
-    subfolder_name = os.path.basename(subfolder_path)
-    output_subfolder = os.path.join(output_dir, subfolder_name)
+    print(f"Processing directory: {input_dir}")
     
     # Create mocks/ folder in output directory
-    mocks_dir = os.path.join(output_subfolder, "mocks")
+    mocks_dir = os.path.join(output_dir, "mocks")
     ensure_dir(mocks_dir)
 
     # Create basic mocks folder
@@ -305,15 +300,15 @@ def process_subfolder(subfolder_path, output_dir):
     ensure_dir(basic_dir)
 
     # Find screenshots (ignore files starting with "bg", "mocks", etc.)
-    screenshot_files = [f for f in os.listdir(subfolder_path)
+    screenshot_files = [f for f in os.listdir(input_dir)
                         if f.lower().endswith(ALLOWED_EXTENSIONS)
                         and not f.lower().startswith("bg")
                         and not f.lower().startswith("mocks")
-                        and os.path.isfile(os.path.join(subfolder_path, f))]
+                        and os.path.isfile(os.path.join(input_dir, f))]
 
     basic_mocks = []
     for fname in screenshot_files:
-        img_path = os.path.join(subfolder_path, fname)
+        img_path = os.path.join(input_dir, fname)
         try:
             enhanced = create_enhanced_screenshot(img_path)
             out_path = os.path.join(basic_dir, fname)
@@ -328,14 +323,14 @@ def process_subfolder(subfolder_path, output_dir):
 
     # Check for background file
     bg_path = None
-    for f in os.listdir(subfolder_path):
+    for f in os.listdir(input_dir):
         if f.lower().startswith("bg") and f.lower().endswith(ALLOWED_EXTENSIONS):
-            bg_path = os.path.join(subfolder_path, f)
+            bg_path = os.path.join(input_dir, f)
             break
 
     # Determine target resolutions: always include 1920x1080, plus those in resolutions.txt
     target_resolutions = [(1920, 1080)]
-    target_resolutions.extend(read_resolutions_file(subfolder_path))
+    target_resolutions.extend(read_resolutions_file(input_dir))
     # Remove duplicates
     target_resolutions = list({res: res for res in target_resolutions}.values())
 
@@ -402,38 +397,4 @@ def process_subfolder(subfolder_path, output_dir):
                     out_combined_bg = os.path.join(bg_combined, out_name)
                     composite_bg.save(out_combined_bg)
                     print(f"Combined bg saved: {out_combined_bg}")
-                combo_index += 1
-
-def process_all_subfolders(base_path, output_dir):
-    """Loop through direct subfolders of base_path and process each."""
-    for subfolder in os.listdir(base_path):
-        subfolder_path = os.path.join(base_path, subfolder)
-        if os.path.isdir(subfolder_path):
-            process_subfolder(subfolder_path, output_dir)
-
-# ------------------------- Main -------------------------
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Generate mockups from screenshots')
-    parser.add_argument('--input-dir', '-i', default='.',
-                      help='Input directory containing screenshots (default: current directory)')
-    parser.add_argument('--output-dir', '-o', default='.',
-                      help='Output directory for generated mockups (default: current directory)')
-    args = parser.parse_args()
-
-    # Convert relative paths to absolute
-    input_dir = os.path.abspath(args.input_dir)
-    output_dir = os.path.abspath(args.output_dir)
-
-    # Ensure output directory exists
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-
-    # Change to input directory to process files
-    original_dir = os.getcwd()
-    os.chdir(input_dir)
-    
-    try:
-        process_all_subfolders('.', output_dir)
-    finally:
-        # Always change back to original directory
-        os.chdir(original_dir)
+                combo_index += 1 
