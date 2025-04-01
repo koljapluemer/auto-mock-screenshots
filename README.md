@@ -2,7 +2,23 @@
 
 A tool to automatically generate mockups from screenshots. This tool adds browser-like elements (top bar, URL bar, icons) to screenshots and can create various combinations of them with or without backgrounds.
 
-## Installation
+Usable on my system with a bash alias now:
+
+```bash
+alias mock-screenshots='~/.local/venv/mock-screenshots/bin/mock-screenshots'
+```
+
+...after installing like follows:
+
+```sh
+python3 -m venv ~/.local/venv/mock-screenshots
+source ~/.local/venv/mock-screenshots/bin/activate
+cd /home/brokkoli/GITHUB/auto-mock-screenshots
+pip install -e .
+```
+(and adding the alias to my `.bashrc`)
+
+## General Installation
 
 ```bash
 pip install mock-screenshots
