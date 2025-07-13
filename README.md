@@ -1,5 +1,8 @@
 # Mock Screenshots
 
+> [!NOTE]  
+> Archived project. I just use the excellent [screenshot.rocks](https://screenshot.rocks/app) instead.
+
 A tool to automatically generate mockups from screenshots. This tool adds browser-like elements (top bar, URL bar, icons) to screenshots and can create various combinations of them with or without backgrounds.
 
 Usable on my system with a bash alias now:
