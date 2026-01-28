@@ -1,0 +1,17 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mock-screenshots"
+version = "0.2.0"
+description = "Arrange images on a canvas to create mockup compositions"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+dependencies = [
+    "pillow",
+]
+
+[project.scripts]
+mock-screenshots = "mock_screenshots.cli:main"
