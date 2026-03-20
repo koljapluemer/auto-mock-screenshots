@@ -1,5 +1,7 @@
 # Mock Screenshots
 
+*now solving this problem in [this repo](https://github.com/koljapluemer/screenshot-mock-wrapper)*
+
 Arrange images on a canvas to create mockup compositions. Single images are centered; multiple images are laid out horizontally.
 
 ## Installation
